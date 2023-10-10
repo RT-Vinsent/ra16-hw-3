@@ -1,46 +1,287 @@
-# Getting Started with Create React App
+## **`!РЕШЕНО! Props. Все задачи`**  
+### Задачи разделены по компонентам в папке components
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+### Ссылкка на [github-pages](https://rt-vinsent.github.io/ra16-hw-3/)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+[![Build status](https://ci.appveyor.com/api/projects/status/6wst6uqh02ncmvsm?svg=true)](https://ci.appveyor.com/project/RT-Vinsent/ra16-hw-3)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+[![pages-build-deployment](https://github.com/RT-Vinsent/ra16-hw-3/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/RT-Vinsent/ra16-hw-3/actions/workflows/pages/pages-build-deployment)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+---
 
-### `npm test`
+Props
+====
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Необходимо выполнить и предоставить на проверку следующие задачи:
 
-### `npm run build`
+<details>
+<summary>1. Рейтинг фильмов</summary>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Рейтинг фильмов
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Необходимо реализовать компонент, отображающий рейтинг фильма в виде звёзд:
+![Список фильмов](./assets/preview.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Описание компонента
 
-### `npm run eject`
+Для отображения рейтинга создайте компонент `Stars`, который принимает следующие атрибуты:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- `count` — рейтинг фильма, _число_, по умолчанию `0`.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Если рейтинг меньше `1` или больше `5`, или вообще не число, то компонент не должен иметь какого-либо представления в
+DOM.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Звёзды рейтинга должны быть представлены тегом `<ul>` с классом `card-body-stars`. Для отображения символа звезды внутри
+тега `<li>` используйте компонент `Star`.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Пример использования
 
-## Learn More
+```jsx
+// Внутри App
+return (
+    <Stars count={1}/>
+);
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Компонент должен дать следующий код:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```html
+
+<ul class="card-body-stars u-clearfix">
+    <li>
+        <svg fill="#D3BCA2" height="28" viewBox="0 0 18 18" width="28" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 11.3l3.71 2.7-1.42-4.36L15 7h-4.55L9 2.5 7.55 7H3l3.71 2.64L5.29 14z"/>
+            <path d="M0 0h18v18H0z" fill="none"/>
+        </svg>
+    </li>
+</ul>
+```
+
+## Реализация
+
+Необходимо реализовать компонент `Stars`. Не забудьте, что отдельная звезда должна быть представлена компонентом `Star`.
+
+Важно: вам нужно реализовать только отображение звёздочек, карточку фильма не нужно.
+
+
+</details>
+
+<details>
+<summary>2. Список предложений</summary>
+
+Список предложений
+===
+
+Необходимо вывести список предложений каталога Etsy.com, используя библиотеку React. После загрузки данных и отрисовки список должен выглядеть так:
+![Список предложений](./assets/preview2.png)
+
+## Данные списка предложений
+
+Данные для списка доступны в формате JSON в каталоге `data`. Вам нужно их скопировать и хранить в виде константы в переменной. Для создания JS-объектов используйте `JSON.parse`.
+
+Это _массив объектов_, каждый _объект_ представляет одно предложение. У предложения доступно множество свойств, но в приложении необходимо использовать следующие:
+- `listing_id` — уникальный идентификатор предложения, _число_;
+- `url` — ссылка на предложение, _строка_;
+- `MainImage` — информация об изображении, _объект_, нам необходимо использовать свойство `url_570xN` для получения адреса главной картинки, _строка_;
+- `title` — название предложения, _строка_;
+- `currency_code` — код валюты, _строка_;
+- `price` — цена, _строка_;
+- `quantity` — доступное количество, _число_.
+
+## Описание компонента
+
+Для отображения списка создайте компонент `Listing`, который принимает следующие атрибуты:
+- `items` — список предложений, _массив объектов_, по умолчанию пустой массив.
+
+Компонент должен создавать на основе списка предложений следующий HTML-код:
+```html
+<div class="item-list">
+  <div class="item">
+    <div class="item-image">
+      <a href="https://www.etsy.com/listing/292754135/woodland-fairy">
+        <img src="https://img1.etsystatic.com/156/0/12814579/il_570xN.1173240751_50hv.jpg">
+      </a>
+    </div>
+    <div class="item-details">
+      <p class="item-title">Woodland Fairy</p>
+      <p class="item-price">$3.99</p>
+      <p class="item-quantity level-medium">12 left</p>
+    </div>
+  </div>
+</div>
+```
+
+Если название предложения превышает `50` символов, то необходимо выводить только первые `50` символов, и добавлять символ `…` в конце.
+
+При выводе стоимости предложения необходимо учитывать валюту. Если цена задана:
+- в долларах США, код `USD`, то цену вывести в формате `$50.00`;
+- в евро, код `EUR`, то цену вывести в формате `€50.00`;
+- в остальных случаях цену вывести в формате `50.00 GBP`, где `GBP` — код валюты.
+
+Вывести остаток, подсветив его в зависимости от количества, используя класс `level-*`:
+- `level-low` — если остаток меньше `10` включительно;
+- `level-medium` — если остаток меньше `20` включительно;
+- `level-high` — если остаток больше `20`.
+
+## Реализация
+
+Необходимо отобразить данные списка предложений, используя компонент `Listing`.
+
+Используйте приложенный CSS-файл для стилизации.
+
+
+</details>
+
+<details>
+<summary>3. История сообщений в чате — необязательная задача</summary>
+
+История чата
+===
+
+Необходимо реализовать один из компонентов чата — историю сообщений:
+![Чат](./assets/preview3.png)
+
+## Данные
+
+Список сообщений, передаваемый в компонент, представляет собой _массив объектов_, каждый из которых представляет собой сообщение, которое необходимо отразить в истории. Сообщение имеет следующие свойства:
+- `id` — уникальный идентификатор сообщения, _строка_;
+- `from` — автор сообщения, _объект_;
+- `type` — тип сообщения, _строка_, варианты значений: `response`, `message`, `typing`;
+- `time` — время публикации сообщения, _строка_;
+- `text` — текст сообщения, _строка_, может отсутствовать.
+
+## Описание компонента
+
+Для отображения списка создайте компонент `MessageHistory`, который принимает следующие атрибуты:
+- `list` — список сообщений, _массив объектов_, по умолчанию пустой массив.
+
+Если список сообщений пуст, то компонент не должен иметь какого-либо представления в DOM.
+
+Компонент должен создавать на основе списка предложений следующий HTML-код:
+```html
+<ul>
+  <li class="clearfix">
+    <div class="message-data align-right">
+      <span class="message-data-time">10:10</span> &nbsp; &nbsp;
+      <span class="message-data-name">Ольга</span>
+      <i class="fa fa-circle me"></i>
+    </div>
+    <div class="message other-message float-right">
+      Привет, Виктор. Как дела? Как идёт работа над проектом?
+    </div>
+  </li>
+  <li>
+    <div class="message-data">
+      <span class="message-data-name"><i class="fa fa-circle online"></i> Виктор</span>
+      <span class="message-data-time">10:12</span>
+    </div>
+    <div class="message my-message">
+      Привет. Давай сегодня созвонимся. Проект практически готов, и у меня есть что показать.
+    </div>
+  </li>
+  <!-- … и так далее -->
+</ul>
+```
+
+Где каждый тег `<li>` — сообщение из массива. Для отображения сообщений в чате необходимо использовать следующие компоненты:
+- `Message` — если тип сообщения равен `message`;
+- `Response` — если тип сообщения равен `response`;
+- `Typing` — если тип сообщения равен `typing`.
+
+Все три компонента принимают следующие аргументы:
+- `from` — автор сообщения, _объект_;
+- `message` — сообщение, _объект_.
+
+## Пример использования
+
+```jsx
+const messages = [{
+  id: 'chat-5-1090',
+  from: { name: 'Ольга' },
+  type: 'response',
+  time: '10:10',
+  text: 'Привет, Виктор. Как дела? Как идёт работа над проектом?'
+}];
+
+// в компоненте App:
+return (
+  <div className="clearfix container">
+    <div className="chat">
+      <div className="chat-history">
+        <MessageHistory list={messages} />
+      </div>
+    </div>  
+  </div>
+);
+```
+
+Данные для сообщений:
+```js
+const messages = [{
+  id: 'chat-5-1090',
+  from: { name: 'Ольга' },
+  type: 'response',
+  time: '10:10',
+  text: 'Привет, Виктор. Как дела? Как идёт работа над проектом?'
+}, {
+  id: 'chat-5-1091',
+  from: { name: 'Виктор' },
+  type: 'message',
+  time: '10:12',
+  text: 'Привет. Давай сегодня созвонимся. Проект практически готов, и у меня есть что показать.'
+}, {
+  id: 'chat-5-1092',
+  from: { name: 'Ольга' },
+  type: 'response',
+  time: '10:14',
+  text: 'Не уверена, что сегодня получится. Всё ещё в офисе. Давай уточню через час. Возникли ли какие-либо проблемы на последней стадии проекта?'
+}, {
+  id: 'chat-5-1093',
+  from: { name: 'Виктор' },
+  type: 'message',
+  time: '10:20',
+  text: 'Нет, всё прошло гладко. Очень хочу показать всё команде.'
+}, {
+  id: 'chat-5-1094',
+  from: { name: 'Виктор' },
+  type: 'typing',
+  time: '10:31'
+}];
+```
+
+## Реализация
+
+Необходимо реализовать компонент `MessageHistory`. Важно: вам нужно реализовать только список истории, аватарки и боковую панель реализовывать не нужно.
+
+Используйте файл из каталога CSS для стилизации.
+
+
+</details>
+
+---
+</br>
+
+Все три задачи лучше сдавать в разных репозиториях, то есть через create-react-app реализовать три проекта, чтобы не
+было конфликта стилей. Но если вы позаботитесь о том, что конфликта не будет, то можете сдавать и в одном проекте.
+Все стили необходимо размещать в файле App.css.
+
+**Важно!**  
+Задачи должны быть написаны на TypeScript. Все Props должны иметь свой тип или интерфейс. Использование типа any не
+допускается.
+
+#### Альтернативный способ создания приложения React с использованием тулинга Vite
+
+Приложение можно создать, используя инструмент Vite.
+Документация по созданию приложения [React](https://vitejs.dev/guide/).
+
+1. Откройте терминал и пропишите следующую команду: `yarn create vite my-app --template react`,
+   либо `yarn create vite my-app --template react-ts`, если
+   нужен шаблон с TypeScript. Эта команда создаст настроенный
+   шаблонный проект.
+2. Откройте созданный проект в своей IDE.
+3. Установите зависимости.
+4. Готово. Чтобы запустить приложение, введите команду: `yarn dev`(либо `npm run dev`).

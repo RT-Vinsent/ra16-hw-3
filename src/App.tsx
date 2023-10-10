@@ -1,25 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import FilmsView from './components/task1/FilmsView/FilmsView';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <>
+      {/* шапка */}
+      <header className='header'>
+          <h1>Домашнее задание «Props»</h1>
+          <h2>Задачи расположены последовательно в столбик</h2>
       </header>
-    </div>
+      
+      <FilmsView />
+      
+      {/* Просто подвал */}
+      <footer className='footer'><p>Просто подвал</p></footer>
+    </>
   );
 }
 
