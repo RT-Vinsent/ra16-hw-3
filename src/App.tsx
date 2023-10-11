@@ -2,6 +2,7 @@
 import './App.css';
 import FilmsView from './components/task1/FilmsView/FilmsView';
 import LIstOffers from './components/task2/ListOffers/ListOffers';
+import Chat from './components/task3/Chat/Chat';
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
 
       {/* Компонент задачи №2 */}
       <LIstOffers />
+
+      {/* Компонент задачи №3 */}
+      <Chat />
       
       {/* Просто подвал */}
       <footer className='footer'><p>Просто подвал</p></footer>
